@@ -10,7 +10,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ShopProductInline(admin.TabularInline):
     model = shop.models.ShopProduct
-    autocomplete_fields = ['product']
     extra = 1
     verbose_name = 'Produit'
     verbose_name_plural = 'Produits'

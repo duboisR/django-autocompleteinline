@@ -2,12 +2,12 @@
   $(function(){
     var inline = 'shopproduct_set';
 
-    function autocomplete_watcher() {
+    function select_watcher() {
       $(`.dynamic-${inline}`).each(function(index) {
-        var span = $(`#select2-id_${inline}-${index}-product-container`);
+        var select = $(`#id_${inline}-${index}-product`);
         var price_input = $(`#id_${inline}-${index}-price`);
-        span.bind('DOMNodeInserted', function() {
-          var product_name = span[0].firstChild.data;
+        select.bind('change', function() {
+          var product_name = select.find('option:selected').text();
           $.ajax({
             'type'     : 'GET',
             'url'      : `/api/product_price/?product_name=${product_name}`,
@@ -22,10 +22,10 @@
     }
 
     $(document).ready(function() {
-      autocomplete_watcher();
-      // as long as autocomplete_watcher does not include return false;
+      select_watcher();
+      // as long as select_watcher does not include return false;
       // it shouldn't interfere with the existing functionality of that button.
-      $('.add-row a').click(autocomplete_watcher);
+      $('.add-row a').click(select_watcher);
     });
   });
 })(django.jQuery);
